@@ -1,0 +1,46 @@
+#+TITLE: popjs — Editing of JavaScript multiline strings
+#+OPTIONS: H:2
+
+This bit of Emacs Lisp has been quickly written to help me out of my
+misery while editing long JavaScript multiline strings, from within
+Emacs.  It is not as polished as my *poporg* project on GitHub, from
+which it recycles ideas and code.  For now at least, the documentation
+there gives hints about how to install and use *popjs* here.  The
+following remarks stress a few notable differences:
+
+- *popjs* can only edit one JavaScript multiline string at a time.
+- It solely relies on Emacs fontification to discover the extent of
+  the JavaScript multiline string.
+- *popjs* lets Emacs discover the /normal/ mode for editing the string.
+  This is convenient, for example, when the string contains HTML.
+- The function which should be bound to some Emacs key is named
+  *popjs-edit*.  (Call it again to complete the edition.)
+
+Here are a few caveats:
+
+- *popjs* may fail when the part of the string which is out of sight is
+  not wholly fontified yet, because of lazy fontification in Emacs.
+- If the string contains JavaScript code which Emacs recognizes as
+  such, *popjs* might refuse to complete the edition.
+
+I've seen three styles for multiline strings in JavaScript: one in
+which newlines are escaped, another in which strings are concatenated
+with the =+= operator, and a clever introspection trickery using
+functions to hold the string.  Another approach is to keep the
+multiline string in an external file and edit it there, having some
+JavaScript code to read that file whenever the string is needed.
+
+Only the first style does not require runtime processing, and this is
+the one I selected for myself.  Granted, this style is a bit ugly
+(they /all/ are ugly in my opinion), but with a tool like *popjs*, edition
+is rather neat, so the ugliness becomes very bearable.
+
+I guess that *poporg* and *popjs* should be merged into a single project,
+even if *poporg* is primarily meant for Python and *popjs* for JavaScript.
+They could enlighten each other.  For example, I would like to use Org
+documentation within JavaScript strings.  *poporg* could take advantage
+of the simpler extent discovery from *popjs*.  *popjs* might borrow the
+*poporg* capability to specify explicitly the region to edit.  *popjs*
+might learn to handle simultaneous editions, like *poporg* already does.
+
+François
